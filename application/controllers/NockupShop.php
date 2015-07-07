@@ -8,9 +8,6 @@ class NockupShop  extends CI_Controller{
 
     public function __construct() {
         parent::__construct();
-        
-        /**Cargamos las librerias necesarias para tshop*/
-        
         $this->load->model("tshop/tshop_model");
     }
     
@@ -19,14 +16,34 @@ class NockupShop  extends CI_Controller{
         return null;
     }
     
-    public function Articulos($private_key){
-       
-        if ($this->key != $private_key) {
-            return null;
+    public function NonArticulos($private_key){
+         if(!$this->get_key($private_key)) return NULL;
+         
+          $r =  $this->tshop_model
+             ->get_non_articulos();
+        
+          print json_encode($r);
+    }
+    
+
+    public function Articulos($private_key , $id_articulo ){
+        
+        if(!$this->get_key($private_key)) return NULL;
+        
+        $r =  $this->tshop_model
+             ->get_articulos($id_articulo);
+        
+       print json_encode($r);
+        
+    }
+    
+    
+    private function  get_key($private_key){
+         if ($this->key != $private_key) {
+            return false;
+        }else{
+            return true;
         }
-        
-        $this->tshop_model->get_articulos();
-        
     }
     
     

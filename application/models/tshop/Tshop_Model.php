@@ -23,8 +23,43 @@ class Tshop_Model extends CI_Model {
     }
     
     
-    public function get_articulos(){
+    public function get_articulos($id){
         
+        $this->query = "SELECT 
+                        articulos.nombre as 'nombre',
+                        articulos.descripcion as 'descripcion',
+                        art_variaciones.color as 'color',
+                        art_variaciones.cantidad as 'cantidad',
+                        art_variaciones.costo_total as 'costo_total',
+                        art_variaciones.recargo as 'recargo' , 
+                        art_variaciones.fecha as 'fecha',
+                        adjunto.adjunto as 'adjunto_data'
+                        FROM articulos 
+                        INNER JOIN art_variaciones ON art_variaciones.id_articulo=articulos.id_articulos
+                        LEFT JOIN adjunto ON adjunto.id_adjunto=art_variaciones.id_adjunto
+                        WHERE articulos.id_articulos like ? ;";
+        
+        $result = $this->db
+                ->query($this->query , $id)
+                ->result_object();
+        
+      
+        return $result;
+        
+    }
+    
+    
+    public function get_non_articulos(){
+        $this->query = "SELECT id_articulos as 'id' "
+                . ", nombre as 'nombre' "
+                . ", descripcion as 'descripcion' "
+                . " FROM articulos WHERE status_shop LIKE 1";
+         
+        $result = $this->db
+                ->query($this->query)
+                ->result_object();
+        
+        return $result;
     }
     
   /*  public function get_prod_byart(){
@@ -44,7 +79,6 @@ class Tshop_Model extends CI_Model {
        
      
     }*/
-    
     
     
    /* public function get_count_products(){
