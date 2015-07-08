@@ -28,15 +28,13 @@ class Tshop_Model extends CI_Model {
         $this->query = "SELECT 
                         articulos.nombre as 'nombre',
                         articulos.descripcion as 'descripcion',
+                        articulos.precio as 'precio',
                         color.nombre as 'color',
                         color.referencia as 'color_ref',
-                        art_variaciones.cantidad as 'cantidad',
-                        art_variaciones.costo_total as 'costo_total',
-                        art_variaciones.recargo as 'recargo' ,
-                        art_variaciones.tallas as 'tallas',
-                        art_variaciones.fecha as 'fecha' ,
-                        art_variaciones.descripcion as 'art_descripcion' ,
-                        adjunto.adjunto as 'adjunto_data'
+                        articulos.talla as 'tallas',
+                        adjunto.adjunto as 'adjunto_data',
+                        articulos.id_articulos as 'id_art',
+                        art_variaciones.id_variacion as 'id_var'
                         FROM articulos 
                         INNER JOIN art_variaciones ON art_variaciones.id_articulo=articulos.id_articulos
                         LEFT JOIN color ON color.id_color=art_variaciones.id_color
