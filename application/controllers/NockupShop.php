@@ -40,6 +40,13 @@ class NockupShop  extends CI_Controller{
     }
     
     
+    public function GetImages($image , $c = NULL){
+        $this->output->set_header("Access-Control-Allow-Origin: *");
+        $this->load->library("base_url");
+        print $this->base_url->GetBaseUrl("/images/articulos") . "/" . $image;
+    }
+    
+    
     private function  get_key($private_key){
          if ($this->key != $private_key) {
             return false;

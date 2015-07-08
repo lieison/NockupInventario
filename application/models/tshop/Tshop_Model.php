@@ -35,6 +35,7 @@ class Tshop_Model extends CI_Model {
                         art_variaciones.recargo as 'recargo' ,
                         art_variaciones.tallas as 'tallas',
                         art_variaciones.fecha as 'fecha' ,
+                        art_variaciones.descripcion as 'art_descripcion' ,
                         adjunto.adjunto as 'adjunto_data'
                         FROM articulos 
                         INNER JOIN art_variaciones ON art_variaciones.id_articulo=articulos.id_articulos
