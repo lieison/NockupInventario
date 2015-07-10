@@ -30,11 +30,15 @@ class NockupShop  extends CI_Controller{
 
     public function Articulos($private_key , $id_articulo  , $c = null){
         $this->output->set_header("Access-Control-Allow-Origin: *");
+       
         if(!$this->get_key($private_key)) return NULL;
         
         $r =  $this->tshop_model
              ->get_articulos($id_articulo);
         
+       // print "<pre>" ;
+       // print_r($r);
+       // print "</pre>";
        print json_encode($r);
         
     }
