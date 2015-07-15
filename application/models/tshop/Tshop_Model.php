@@ -16,6 +16,8 @@ class Tshop_Model extends CI_Model {
     
     var $query  = NULL;
     
+    var $key    = "2330?¡?";
+    
     
     public function __construct() {
         parent::__construct();
@@ -63,6 +65,26 @@ class Tshop_Model extends CI_Model {
         
         return $result;
     }
+    
+    public function get_privatekey(){
+        $this->query = "SELECT value FROM ws WHERE item LIKE 'key'";
+        $result = $this->db
+                        ->query($this->query)
+                        ->result_object();
+        return $result[0]->value;
+    }
+    
+    public function change_private_key(){
+        
+        $var = array( "A" , "B" , "C" , "D" , "E" , "F" , "G" , "@" , "%" , "&" , "?" , "!" , "¡");
+        $this->load->helper("array");
+        $plain = (sin(rand(2, 5)) * pi() ) + rand(200, 2000)  ;
+        $plain = $plain  . random_element($var). random_element($var);
+        $result =  md5($plain);
+        $this->db->update("ws" , array("value" => $result) , array("item" => "key"));
+        return $result;
+    }
+    
     
   /*  public function get_prod_byart(){
         
